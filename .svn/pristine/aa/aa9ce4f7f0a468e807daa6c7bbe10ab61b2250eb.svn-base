@@ -1,0 +1,30 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+	
+<style>
+	#Mainlogo{
+		float:left;
+	}
+	#top1{
+		display:inline-block;
+		
+	}
+</style>
+<div>
+	<a id="Mainlogo">
+		<img src="resources/assets/img/job-logo0.png" alt="">
+	</a>
+	
+	<ul class="navbar-nav mr-auto w-100 justify-content-end" id="top1">
+		<li class="nav-item"><a class="nav-link" href="index.html">결제</a>
+		</li>
+		<li class="nav-item"><a class="nav-link" href="index.html">회원가입</a>
+		</li>
+		<li class="nav-item"><a class="nav-link" href="login.html">로그인</a>
+		</li>
+	</ul>
+</div>
+
+<div class="collapse navbar-collapse" id="main-navbar">
+	
+</div>

@@ -1,0 +1,9 @@
+#driverClassName=oracle.jdbc.driver.OracleDriver
+#url=jdbc:oracle:thin:@127.0.0.1:1521:xe
+driverClassName=net.sf.log4jdbc.DriverSpy
+url=jdbc:log4jdbc:oracle:thin:@112.220.114.130:xe
+user=TEAM2_202111F
+password=java
+initialSize=2
+maxWait=2000
+maxTotal=2

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--  [[개정이력(Modification Information)]]       -->
+<!--  수정일        수정자     수정내용               -->
+<!--  ==========   ======    ==============        -->
+<!--  2022. 4. 26.     박상진     최초작성               -->
+<!--  Copyright (c) 2022 by DDIT All right reserved -->
+
+<mapper namespace="kr.or.ddit.member.dao.MemberDAO">
+	<insert id="insertMember" parameterType="MemberVO" >
+		INSERT INTO member (
+		    mem_id
+		   ,mem_pass
+		   ,mem_name
+		   ,mem_add1
+		   ,mem_add2
+		   ,mem_zip
+		   ,mem_mail
+		   ,mem_hp
+		   ,mem_job
+		   ,mem_tel
+		) VALUES (
+		     #{memId, jdbcType=VARCHAR}
+		    ,#{memPass, jdbcType=VARCHAR}
+		    ,#{memName, jdbcType=VARCHAR}
+		    ,#{memAdd1, jdbcType=VARCHAR}
+		    ,#{memAdd2, jdbcType=VARCHAR}
+		    ,#{memZip, jdbcType=CHAR}
+		    ,#{memMail, jdbcType=VARCHAR}
+		    ,#{memHp, jdbcType=VARCHAR}
+		    ,#{memJob, jdbcType=VARCHAR}
+		    ,#{memTel, jdbcType=VARCHAR}
+		    ,#{memBlind, jdbcType=VARCHAR}
+		    ,#{memAdmin, jdbcType=VARCHAR}
+		    ,#{memDel, jdbcType=VARCHAR}
+		);
+	</insert>
+	
+	<insert id="insertNormalMember" parameterType="MemberVO" >
+		INSERT INTO normalmember (
+		    mem_id
+		   ,normalmem_regno1
+		   ,normalmem_regno2
+		   ,normalmem_bir
+		   ,normalmem_like
+		   ,normalmem_marriage
+		   ,normalmem_grade
+		) VALUES (
+		     #{memId, jdbcType=VARCHAR}
+		    ,#{normalmemRegno1, jdbcType=CHAR}
+		    ,#{normalmemRegno2, jdbcType=CHAR}
+		    ,#{normalmemBir, jdbcType=DATE}
+		    ,#{normalmemLike, jdbcType=VARCHAR}
+		    ,#{normalmemMarriage, jdbcType=VARCHAR}
+		    ,#{normalmemGrade, jdbcType=NUMERIC}
+		);
+	</insert>
+	
+	<insert id="insertEnterprise" parameterType="MemberVO">
+		INSERT INTO enterprise (
+		    mem_id
+		   ,ent_history
+		   ,ent_grade
+		   ,ent_hunter
+		) VALUES (
+		     #{memId, jdbcType=VARCHAR}
+		    ,#{entHistory, jdbcType=VARCHAR}
+		    ,#{entGrade, jdbcType=NUMERIC}
+		    ,#{entHunter, jdbcType=VARCHAR}
+		);
+	</insert>
+	
+	<!-- 전체 회원리스트 조회 일단 보류 -->
+	<resultMap type="memberVO" id="memberMap">
+		<id property="memId" column="MEM_ID"/>
+		<association property="normalMember" autoMapping="true" />
+		<association property="enterprise" autoMapping="true" />
+	</resultMap>
+	<select id="selectAllMemberList" resultMap="memberMap">
+		SELECT
+		    a.mem_id
+		   ,a.mem_pass
+		   ,a.mem_name
+		   ,a.mem_add1
+		   ,a.mem_add2
+		   ,a.mem_zip
+		   ,a.mem_mail
+		   ,a.mem_hp
+		   ,a.mem_job
+		   ,a.mem_tel
+		   ,a.mem_blind
+		   ,a.mem_admin
+		   ,a.mem_del
+		   ,b.ent_history
+           ,b.ent_grade
+           ,b.ent_hunter
+           ,c.normalmem_regno1
+		   ,c.normalmem_regno2
+		   ,c.normalmem_bir
+		   ,c.normalmem_like
+		   ,c.normalmem_marriage
+		   ,c.normalmem_grade
+		FROM
+    		member a 
+            left outer join enterprise b on(a.mem_id = b.mem_id)
+            left outer join normalmember c on(a.mem_id = c.mem_id)
+	</select>
+	
+	<resultMap type="MemberVO" id="normalMemberMap" autoMapping="true">
+		<id property="memId" column="MEM_ID"/>
+		<association property="normalMember" autoMapping="true" />
+	</resultMap>
+	<select id="selectNormalMemberList" resultMap="normalMemberMap">
+		SELECT
+		    a.mem_id
+		   ,a.mem_pass
+		   ,a.mem_name
+		   ,a.mem_add1
+		   ,a.mem_add2
+		   ,a.mem_zip
+		   ,a.mem_mail
+		   ,a.mem_hp
+		   ,a.mem_job
+		   ,a.mem_tel
+		   ,a.mem_blind
+		   ,a.mem_admin
+		   ,a.mem_del
+		   ,b.normalmem_regno1
+		   ,b.normalmem_regno2
+		   ,b.normalmem_bir
+		   ,b.normalmem_like
+		   ,b.normalmem_marriage
+		   ,b.normalmem_grade
+		FROM
+    		member a inner join normalmember b on(a.mem_id = b.mem_id)
+	</select>
+	
+	<resultMap type="MemberVO" id="enterpriseMemberMap">
+		<id property="memId" column="MEM_ID"/>
+		<association property="enterprise" autoMapping="true" />
+	</resultMap>
+	<select id="selectEnterpriseList" resultMap="enterpriseMemberMap">
+		SELECT
+		    a.mem_id
+		   ,a.mem_pass
+		   ,a.mem_name
+		   ,a.mem_add1
+		   ,a.mem_add2
+		   ,a.mem_zip
+		   ,a.mem_mail
+		   ,a.mem_hp
+		   ,a.mem_job
+		   ,a.mem_tel
+		   ,a.mem_blind
+		   ,a.mem_admin
+		   ,a.mem_del
+		   ,b.ent_history
+           ,b.ent_grade
+           ,b.ent_hunter
+		FROM
+    		member a inner join enterprise b on(a.mem_id = b.mem_id)
+	</select>
+	
+	<sql id="whereFilter">
+		<where>
+			<if test="memId neq null">
+				AND a.MEM_ID = #{memId}
+			</if>
+			<if test="memName neq null">
+				AND a.MEM_NAME = #{memName}
+			</if>
+			<if test="memAdd1 neq null">
+				AND a.MEM_ADD1 = #{memAdd1}
+			</if>
+			<if test="memHp neq null">
+				AND a.MEM_HP = #{memHp} 
+			</if>
+			<if test="memJob neq null">
+				AND a.MEM_JOB = #{memJob}
+			</if>
+		</where>
+	</sql>
+	
+	<select id="selectFilterMemberList" resultType="MemberVO">
+		SELECT
+		    a.mem_id
+		   ,a.mem_pass
+		   ,a.mem_name
+		   ,a.mem_add1
+		   ,a.mem_add2
+		   ,a.mem_zip
+		   ,a.mem_mail
+		   ,a.mem_hp
+		   ,a.mem_job
+		   ,a.mem_tel
+		   ,a.mem_blind
+		   ,a.mem_admin
+		   ,a.mem_del
+		   ,b.ent_history
+           ,b.ent_grade
+           ,b.ent_hunter
+           ,c.normalmem_regno1
+		   ,c.normalmem_regno2
+		   ,c.normalmem_bir
+		   ,c.normalmem_like
+		   ,c.normalmem_marriage
+		   ,c.normalmem_grade
+		FROM
+    		member a 
+            left outer join enterprise b on(a.mem_id = b.mem_id)
+            left outer join normalmember c on(a.mem_id = c.mem_id)
+        	<include refid="whereFilter" />
+	</select>
+	
+</mapper>

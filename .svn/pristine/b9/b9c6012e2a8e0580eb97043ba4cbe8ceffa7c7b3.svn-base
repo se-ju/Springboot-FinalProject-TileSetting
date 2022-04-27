@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd" >
+<tiles-definitions>
+
+	<!-- 1. 메인 페이지 definition -->
+	<definition name="parentMain" template="/WEB-INF/views/template.jsp">
+		<put-attribute name="preScript" value="/includee/preScript.jsp" />
+		<put-attribute name="postScript" value="/includee/postScript.jsp" />
+		<put-attribute name="top1Menu" value="/includee/top1Menu.jsp"/>
+		<put-attribute name="top2Menu" value="/includee/top2Menu.jsp"/>
+		<put-attribute name="footerMenu" value="/includee/footerMenu.jsp"/>
+	</definition>
+	
+	<!-- 메인페이지 인덱스 -->
+	<definition name="index" extends="parentMain">
+		<put-attribute name="content" value="/WEB-INF/views/index.jsp" />
+	</definition>
+	
+	<!-- ********************************************************************************** -->
+	<!-- 2. 메인 페이지 depth1 진입 -->
+	<definition name="parentD1" template="/WEB-INF/views/template2.jsp">
+		<put-attribute name="preScript" value="/includee/preScript.jsp" />
+		<put-attribute name="postScript" value="/includee/postScript.jsp" />
+		<put-attribute name="top1Menu" value="/includee/top1Menu.jsp"/>
+		<put-attribute name="top2Menu" value="/includee/top2Menu.jsp"/>
+		<put-attribute name="leftMenu" value="/includee/leftMenu.jsp"/>
+	</definition>
+	
+	<!-- depth 구조 페이지 아직 보류-->
+	<definition name="blog/*" extends="parentD1" preparer="">
+		<put-attribute name="content" value=""/>
+	</definition>
+	
+	<definition name="enterprisepage/*" extends="parentD1" preparer="">
+		<put-attribute name="content" value=""/>
+	</definition>
+	
+	<definition name="employment/*" extends="parentD1" preparer="">
+		<put-attribute name="content" value=""/>
+	</definition>
+	
+	<definition name="projectmanagementsystem/*" extends="parentD1" preparer="">
+		<put-attribute name="content" value=""/>
+	</definition>
+
+	<definition name="mypage/*" extends="parentD1" preparer="">
+		<put-attribute name="content" value=""/>
+	</definition>
+	
+	<definition name="payment/*" extends="parentD1" preparer="">
+		<put-attribute name="content" value=""/>
+	</definition>
+	
+	<definition name="outsourcing/*" extends="parentD1" preparer="">
+		<put-attribute name="content" value=""/>
+	</definition>
+	
+	<definition name="login/*" extends="parentD1" preparer="">
+		<put-attribute name="content" value=""/>
+	</definition>
+	
+	<definition name="interview/*" extends="parentD1" preparer="">
+		<put-attribute name="content" value=""/>
+	</definition>
+	
+	<definition name="resumetool/*" extends="parentD1" preparer="">
+		<put-attribute name="content" value=""/>
+	</definition>
+	
+	<definition name="servicecenter/*" extends="parentD1" preparer="">
+		<put-attribute name="content" value=""/>
+	</definition>
+	
+	<definition name="aptitudetest/*" extends="parentD1" preparer="">
+		<put-attribute name="content" value=""/>
+	</definition>
+	
+	<definition name="note/*" extends="parentD1" preparer="">
+		<put-attribute name="content" value=""/>
+	</definition>
+	
+	
+</tiles-definitions>

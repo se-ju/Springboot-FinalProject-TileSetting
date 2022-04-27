@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd" >
+<tiles-definitions>
+	
+	<!-- ********************************************************************************** -->
+	<!-- 3. Blog, PMS, 기업홍보페이지 -->
+	<definition name="parentThr" template="/WEB-INF/views/tempate3.jsp">
+		<put-attribute name="preScript" value="/includee/preScript.jsp" />
+		<put-attribute name="postScript" value="/includee/postScript.jsp" />
+		<put-attribute name="top1Menu" value="/includee/top1Menu.jsp"/>
+	</definition>
+	
+	<!-- Blog -->
+	<definition name="blog/*" extends="parentThr">
+		<put-attribute name="content" value="WEB-INF/views/blog/{1}.jsp"/>
+	</definition>
+	
+	<!-- 기업페이지 -->
+	<definition name="enterprisePage/*" extends="parentThr">
+		<put-attribute name="content" value="WEB-INF/views/enterprisePage/{1}"/>
+	</definition>
+	
+	<!-- PMS -->
+	<definition name="pms/*" extends="parentThr">
+		<put-attribute name="content" value="WEB-INF/views/pms/{1}"/>
+	</definition>
+
+</tiles-definitions>
